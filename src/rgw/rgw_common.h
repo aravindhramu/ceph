@@ -1027,4 +1027,7 @@ extern void calc_hmac_sha1(const char *key, int key_len,
                           const char *msg, int msg_len, char *dest);
 /* destination should be CEPH_CRYPTO_HMACSHA1_DIGESTSIZE bytes long */
 
+extern void get_hmac_sha1_base64(const char *key, int key_len,
+                          const char *msg, int msg_len, bufferlist dest);
+
 #endif

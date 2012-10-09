@@ -731,18 +731,96 @@ int RGWPostObj_REST_S3::get_params()
     attrs[attr_name] = attr_bl;
   }
 
-  string canned_acl;
-  part_str("acl", &canned_acl);
-
-  RGWAccessControlPolicy_S3 s3policy(s->cct);
-  ldout(s->cct, 20) << "canned_acl=" << canned_acl << dendl;
-  if (!s3policy.create_canned(s->user.user_id, "", canned_acl))
-    return -EINVAL;
-
-  policy = s3policy;
+//  string canned_acl;
+//  part_str("acl", &canned_acl);
+//
+//  RGWAccessControlPolicy_S3 s3policy(s->cct);
+//  ldout(s->cct, 20) << "canned_acl=" << canned_acl << dendl;
+//  if (!s3policy.create_canned(s->user.user_id, "", canned_acl))
+//    return -EINVAL;
+//
+//  policy = s3policy;
 
   return 0;
 }
+
+int RGWPostObj_REST_S3::verify_permission()
+{
+  // read in the data from the POST form
+  ret = get_params();
+  if (ret < 0)
+    return -EINVAL;
+
+  string encoded_policy_str;
+  if (part_str("policy", &encoded_policy_str)) {
+    bufferlist decoded_policy;
+    bufferlist encoded_policy;
+
+    encoded_policy.append(encoded_policy_str.c_str());
+
+    // check that the signature matches the encoded policy
+    string s3_access_key;
+    if (part_str("AWSAccessKeyId", &s3_access_key)) {
+      RGWUserInfo user_info;
+
+      ret = rgw_get_user_info_by_access_key(store, s3_access_key, user_info);
+      if (ret < 0) {
+        ldout(s->cct, 0) << "User lookup failed!" << dendl;
+        return -EINVAL;
+      }
+
+      map<string, RGWAccessKey> access_keys  = user_info.access_keys;
+
+      map<string, RGWAccessKey>::const_iterator iter = access_keys.begin();
+      string s3_secret_key = (iter->second).key;
+
+      string signature_str;
+      if (part_str("signature", &signature_str)) {
+        ldout(s->cct, 0) << "Attached signature found!" << dendl;
+
+
+        char calc_signature[CEPH_CRYPTO_HMACSHA1_DIGESTSIZE];
+        calc_hmac_sha1(s3_secret_key.c_str(), s3_secret_key.size(), encoded_policy_str.c_str(), encoded_policy_str.size(), calc_signature);
+        bufferlist encoded_hmac;
+        bufferlist raw_hmac;
+        raw_hmac.append(calc_signature);
+        raw_hmac.encode_base64(encoded_hmac);
+
+        if (strcmp(encoded_hmac.c_str(), signature_str.c_str()) != 0) {
+          ldout(s->cct, 0) << "Signature verification failed!" << dendl;
+          ldout(s->cct, 0) << "expected: " << signature_str.c_str() << dendl;
+          ldout(s->cct, 0) << "got: " << encoded_hmac.c_str() << dendl;
+          return -EINVAL;
+        } else {
+          ldout(s->cct, 0) << "Successful Signature Verification!" << dendl;
+        }
+      } else {
+        ldout(s->cct, 0) << "No signature found!" << dendl;
+        return -EINVAL;
+      }
+    } else {
+      ldout(s->cct, 0) << "No S3 access key found!" << dendl;
+      return -EINVAL;
+    }
+
+//    encoded_policy.decode_base64(decoded_policy);
+
+  } else {
+    ldout(s->cct, 0) << "No attached policy found!" << dendl;
+    string canned_acl;
+    part_str("acl", &canned_acl);
+
+    RGWAccessControlPolicy_S3 s3policy(s->cct);
+    ldout(s->cct, 20) << "canned_acl=" << canned_acl << dendl;
+    if (!s3policy.create_canned(s->user.user_id, "", canned_acl))
+      return -EINVAL;
+
+    policy = s3policy;
+  }
+
+  return 0;
+}
+
 
 int RGWPostObj_REST_S3::complete_get_params()
 {

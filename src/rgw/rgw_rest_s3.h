@@ -96,7 +96,7 @@ struct ltstr_nocase
 class RGWPostObj_REST_S3 : public RGWPostObj_REST {
   string boundary;
   bufferlist in_data;
-  map<string, post_form_part, const ltstr_nocase> parts;  
+  map<string, post_form_part, const ltstr_nocase> parts;
 
   int read_with_boundary(bufferlist& bl, uint64_t max, bool check_eol,
                          bool *reached_boundary,
@@ -115,6 +115,7 @@ public:
   ~RGWPostObj_REST_S3() {}
 
   int get_params();
+  int verify_permission();
   int complete_get_params();
   void send_response();
   int get_data(bufferlist& bl);

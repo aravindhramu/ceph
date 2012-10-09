@@ -218,6 +218,27 @@ void calc_hmac_sha1(const char *key, int key_len,
   buf_to_hex((unsigned char *)dest, CEPH_CRYPTO_HMACSHA1_DIGESTSIZE, hex_str);
 }
 
+void get_hmac_sha1_base64(const char *key, int key_len,
+                    const char *msg, int msg_len, bufferlist dest)
+
+{
+  unsigned char m[CEPH_CRYPTO_HMACSHA1_DIGESTSIZE];
+  char hex_str[(CEPH_CRYPTO_HMACSHA1_DIGESTSIZE * 2) + 1];
+  HMACSHA1 hmac((const unsigned char *)key, key_len);
+  hmac.Update((const unsigned char *)msg, msg_len);
+
+  hmac.Final(m);
+  buf_to_hex(m, CEPH_CRYPTO_HMACSHA1_DIGESTSIZE, hex_str);
+
+
+  bufferlist hex_buffer;
+  hex_buffer.append(hex_str);
+  hex_buffer.encode_base64(dest);
+
+
+//  buf_to_hex((unsigned char *)dest, CEPH_CRYPTO_HMACSHA1_DIGESTSIZE, hex_str);
+}
+
 int gen_rand_base64(CephContext *cct, char *dest, int size) /* size should be the required string size + 1 */
 {
   char buf[size];

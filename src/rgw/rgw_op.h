@@ -355,12 +355,12 @@ public:
     policy.set_ctx(s->cct);
   }
 
-  int verify_permission();
   void execute();
 
   RGWPutObjProcessor *select_processor();
   void dispose_processor(RGWPutObjProcessor *processor);
 
+  virtual int verify_permission() = 0;
   virtual int get_params() = 0;
   virtual int get_data(bufferlist& bl) = 0;
   virtual void send_response() = 0;

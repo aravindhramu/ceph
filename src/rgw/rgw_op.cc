@@ -877,17 +877,67 @@ int RGWPutObj::verify_permission()
   return 0;
 }
 
-int RGWPostObj::verify_permission()
-{
-  // read in the data from the POST form 
-  ret = get_params();
-  if (ret < 0)
-    return -EINVAL;
-
-  /* we'll handle permissions later in the process, as user needs to attach policy */
-
-  return 0;
-}
+//int RGWPostObj::verify_permission()
+//{
+//  // read in the data from the POST form
+//  ret = get_params();
+//  if (ret < 0)
+//    return -EINVAL;
+//
+//  map<string, post_form_part, const ltstr_nocase>::iterator it;
+//  it = parts.find("policy");
+//  if (it != parts.end()) {
+//    RGWUserInfo user_info;
+//    bufferlist decoded_policy;
+//    bufferlist encoded_policy
+//
+//    encoded_policy = (parts["policy"]).data;
+//
+//    // check that the signature matches the encoded policy
+//    it = parts.find("AWSAccessKeyId");
+//    if (it != parts.end()) {
+//      string access_key = parts["AWSAccessKeyId"].data.c_str();
+//      ret = rgw_get_user_info_by_access_key(store, access_key, user_info);
+//      if (ret == 0) {
+//        it = parts.find("signature");
+//        if (it != parts.end()) {
+//          string secret_key = parts["signature"].data;
+//          bool result = false;
+//
+//
+//        } else {
+//          return -EINVAL;
+//        }
+//
+//      }
+//
+//
+//    } else {
+//      return -EINVAL;
+//    }
+//
+//
+//    encoded_policy.decode_base64(decoded_policy);
+//
+//
+//
+//
+//
+//
+//  } else {
+//    string canned_acl;
+//    part_str("acl", &canned_acl);
+//
+//    RGWAccessControlPolicy_S3 s3policy(s->cct);
+//    ldout(s->cct, 20) << "canned_acl=" << canned_acl << dendl;
+//    if (!s3policy.create_canned(s->user.user_id, "", canned_acl))
+//      return -EINVAL;
+//
+//    policy = s3policy;
+//  }
+//
+//  return 0;
+//}
 
 class RGWPutObjProcessor_Plain : public RGWPutObjProcessor
 {
