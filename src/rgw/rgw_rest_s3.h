@@ -86,14 +86,6 @@ struct post_form_part {
   bufferlist data;
 };
 
-struct ltstr_nocase
-{
-  bool operator()(const string& s1, const string& s2) const
-  {
-    return strcasecmp(s1.c_str(), s2.c_str()) < 0;
-  }
-};
-
 class RGWPostObj_REST_S3 : public RGWPostObj_REST {
   string boundary;
   bufferlist in_data;
