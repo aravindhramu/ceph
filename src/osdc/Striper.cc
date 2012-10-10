@@ -99,8 +99,8 @@ void Striper::file_to_extents(CephContext *cct, const char *object_format,
 
     ObjectExtent *ex = 0;
     vector<ObjectExtent>& exv = object_extents[oid];
-    if (exv.back().offset + exv.back().length != x_offset) {
-      exv.resize(1);
+    if (exv.empty() || exv.back().offset + exv.back().length != x_offset) {
+      exv.resize(exv.size() + 1);
       ex = &exv.back();
       ex->oid = oid;
       ex->objectno = objectno;
