@@ -822,6 +822,10 @@ int RGWPostObj_REST_S3::get_policy()
       return -EINVAL;
     }
 
+    post_policy.set_var_checked("AWSAccessKeyId");
+    post_policy.set_var_checked("policy");
+    post_policy.set_var_checked("signature");
+
     if (!post_policy.check(&env)) {
       ldout(s->cct, 0) << "policy check failed" << dendl;
       return -EINVAL;
