@@ -37,6 +37,7 @@
     lock list <image-name>                      show locks held on an image
     lock add <image-name> <id> [--shared <tag>] take a lock called id on an image
     lock remove <image-name> <id> <locker>      release a lock on an image
+    bench-write <image-name> --io-size <bytes> --io-threads <num> --io-total <bytes>
   
   <image-name>, <snap-name> are [pool/]name[@snap], or you may specify
   individual pieces of names with -p/--pool, --image, and/or --snap.
@@ -97,6 +98,7 @@
     lock list <image-name>                      show locks held on an image
     lock add <image-name> <id> [--shared <tag>] take a lock called id on an image
     lock remove <image-name> <id> <locker>      release a lock on an image
+    bench-write <image-name> --io-size <bytes> --io-threads <num> --io-total <bytes>
   
   <image-name>, <snap-name> are [pool/]name[@snap], or you may specify
   individual pieces of names with -p/--pool, --image, and/or --snap.
@@ -157,6 +159,7 @@
     lock list <image-name>                      show locks held on an image
     lock add <image-name> <id> [--shared <tag>] take a lock called id on an image
     lock remove <image-name> <id> <locker>      release a lock on an image
+    bench-write <image-name> --io-size <bytes> --io-threads <num> --io-total <bytes>
   
   <image-name>, <snap-name> are [pool/]name[@snap], or you may specify
   individual pieces of names with -p/--pool, --image, and/or --snap.
@@ -217,6 +220,7 @@
     lock list <image-name>                      show locks held on an image
     lock add <image-name> <id> [--shared <tag>] take a lock called id on an image
     lock remove <image-name> <id> <locker>      release a lock on an image
+    bench-write <image-name> --io-size <bytes> --io-threads <num> --io-total <bytes>
   
   <image-name>, <snap-name> are [pool/]name[@snap], or you may specify
   individual pieces of names with -p/--pool, --image, and/or --snap.
@@ -277,6 +281,7 @@
     lock list <image-name>                      show locks held on an image
     lock add <image-name> <id> [--shared <tag>] take a lock called id on an image
     lock remove <image-name> <id> <locker>      release a lock on an image
+    bench-write <image-name> --io-size <bytes> --io-threads <num> --io-total <bytes>
   
   <image-name>, <snap-name> are [pool/]name[@snap], or you may specify
   individual pieces of names with -p/--pool, --image, and/or --snap.
@@ -337,6 +342,7 @@
     lock list <image-name>                      show locks held on an image
     lock add <image-name> <id> [--shared <tag>] take a lock called id on an image
     lock remove <image-name> <id> <locker>      release a lock on an image
+    bench-write <image-name> --io-size <bytes> --io-threads <num> --io-total <bytes>
   
   <image-name>, <snap-name> are [pool/]name[@snap], or you may specify
   individual pieces of names with -p/--pool, --image, and/or --snap.
@@ -397,6 +403,7 @@
     lock list <image-name>                      show locks held on an image
     lock add <image-name> <id> [--shared <tag>] take a lock called id on an image
     lock remove <image-name> <id> <locker>      release a lock on an image
+    bench-write <image-name> --io-size <bytes> --io-threads <num> --io-total <bytes>
   
   <image-name>, <snap-name> are [pool/]name[@snap], or you may specify
   individual pieces of names with -p/--pool, --image, and/or --snap.
@@ -457,6 +464,7 @@
     lock list <image-name>                      show locks held on an image
     lock add <image-name> <id> [--shared <tag>] take a lock called id on an image
     lock remove <image-name> <id> <locker>      release a lock on an image
+    bench-write <image-name> --io-size <bytes> --io-threads <num> --io-total <bytes>
   
   <image-name>, <snap-name> are [pool/]name[@snap], or you may specify
   individual pieces of names with -p/--pool, --image, and/or --snap.
@@ -517,6 +525,7 @@
     lock list <image-name>                      show locks held on an image
     lock add <image-name> <id> [--shared <tag>] take a lock called id on an image
     lock remove <image-name> <id> <locker>      release a lock on an image
+    bench-write <image-name> --io-size <bytes> --io-threads <num> --io-total <bytes>
   
   <image-name>, <snap-name> are [pool/]name[@snap], or you may specify
   individual pieces of names with -p/--pool, --image, and/or --snap.
@@ -577,6 +586,7 @@
     lock list <image-name>                      show locks held on an image
     lock add <image-name> <id> [--shared <tag>] take a lock called id on an image
     lock remove <image-name> <id> <locker>      release a lock on an image
+    bench-write <image-name> --io-size <bytes> --io-threads <num> --io-total <bytes>
   
   <image-name>, <snap-name> are [pool/]name[@snap], or you may specify
   individual pieces of names with -p/--pool, --image, and/or --snap.
@@ -637,6 +647,7 @@
     lock list <image-name>                      show locks held on an image
     lock add <image-name> <id> [--shared <tag>] take a lock called id on an image
     lock remove <image-name> <id> <locker>      release a lock on an image
+    bench-write <image-name> --io-size <bytes> --io-threads <num> --io-total <bytes>
   
   <image-name>, <snap-name> are [pool/]name[@snap], or you may specify
   individual pieces of names with -p/--pool, --image, and/or --snap.
@@ -697,6 +708,7 @@
     lock list <image-name>                      show locks held on an image
     lock add <image-name> <id> [--shared <tag>] take a lock called id on an image
     lock remove <image-name> <id> <locker>      release a lock on an image
+    bench-write <image-name> --io-size <bytes> --io-threads <num> --io-total <bytes>
   
   <image-name>, <snap-name> are [pool/]name[@snap], or you may specify
   individual pieces of names with -p/--pool, --image, and/or --snap.
